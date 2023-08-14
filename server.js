@@ -19,7 +19,7 @@ app.use((req, res, next) => {
 });
 
 // New Hello, World! route
-app.get('/api/hello', (req, res) => {
+app.get('/', (req, res) => {
     res.send('Hello, World!');
 });
 
