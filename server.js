@@ -18,6 +18,11 @@ app.use((req, res, next) => {
     next();
 });
 
+// New Hello, World! route
+app.get('/api/hello', (req, res) => {
+    res.send('Hello, World!');
+});
+
 // Connection to the database
 mongoose.connect(process.env.MONG)
     .then(() => {
