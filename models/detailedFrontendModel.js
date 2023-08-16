@@ -33,17 +33,13 @@ const detailedFrontendSchema = new mongoose.Schema({
   questions: [
     {
       text: { type: String, required: true },
+      answer: { type: String, required: true }, 
     },
   ],
   isRecommended: {
     type: Boolean,
     default: false,
   },
-  checkbox: {
-    type: Boolean,
-    default: false,
-  },
-  
 });
 
 const detailedFrontendModel = mongoose.model('detailedFrontendModel', detailedFrontendSchema);
