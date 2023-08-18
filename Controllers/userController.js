@@ -4,7 +4,7 @@ const UserCheckboxData = require('../models/userCheckboxData');
 const UserLogin = async (req, res) => {
     const { email, password } = req.body;
     try {
-        const user = await UserSchema.findOne({ email });
+        const user = await UserSchema.login(email,password)
         if (!user) {
             res.status(404).json({ message: 'Not found' });
         } else {
@@ -18,22 +18,20 @@ const UserLogin = async (req, res) => {
 
 const UserSignin = async (req, res) => {
     const { email, password } = req.body;
-    try {
-        const exists = await UserSchema.findOne({ email });
-        if (exists) {
-            res.status(400).json({ message: 'User already exists' });
-        } else {
-            const newUser = await UserSchema.create({ email, password });
-            await UserCheckboxData.create({
-                userId: newUser._id,
-                completedLanguages: [] // Replace 'html' with the correct value
-            });
-            res.status(200).json(newUser);
-        }
-    } catch (error) {
-        res.status(500).json({ message: error.message });
+
+    try{
+        const newUser = await UserSchema.signup( email, password );
+        res.status(200).json({newUser})
+        await UserCheckboxData.create({
+            userId: newUser._id,
+            completedLanguages: [] 
+        })
+      
+    }catch(error)
+    {
+        res.json({msg:'signup error'})
     }
-};
+}
 
 
 

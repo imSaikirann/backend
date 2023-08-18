@@ -10,7 +10,7 @@ const cors = require('cors');
 app.use(express.json());
 
 app.use(cors({
-  origin: 'http://localhost:3000', 
+  origin: ['http://localhost:3000', 'https://fnss.netlify.app'],
   credentials: true, 
 }));
 
@@ -27,7 +27,7 @@ app.get('/', (req, res) => {
     res.send('Hello, World!');
 });
 
-mongoose.connect(process.env.MONGO_URI) // Corrected the environment variable name
+mongoose.connect(process.env.MONGO_URI) 
     .then(() => {
         app.listen(process.env.PORT, () => {
             console.log("Server Started !"); 
