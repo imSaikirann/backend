@@ -9,11 +9,6 @@ const cors = require('cors');
 
 app.use(express.json());
 
-app.use(cors({
-  origin: ['http://localhost:3000', 'https://fnss.netlify.app'],
-  credentials: true, 
-}));
-
 app.use('/api/detailedFrontend', dFrontend);
 app.use('/api/user', UserLoginDetails);
 app.use('/api/updateCheckbox', checkboxUpdate);
