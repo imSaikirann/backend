@@ -7,6 +7,7 @@ const UserLoginDetails = require('./routes/userRoutes');
 const checkboxUpdate = require('./routes/checkboxRoute');
 const cors = require('cors');
 
+app.use(cors());
 app.use(express.json());
 
 app.use('/api/detailedFrontend', dFrontend);
