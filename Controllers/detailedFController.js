@@ -13,6 +13,7 @@ const postData = async (req, res) => {
 const getData = async (req, res) => { 
   try {
     const allData = await detailedFrontendModel.find();
+    res.setHeader('Cache-Control', 'no-store');
     res.status(200).json(allData);
   } catch (error) {
     res.status(400).json({ error: error.message });
