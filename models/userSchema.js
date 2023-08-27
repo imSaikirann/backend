@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+
 const userSchema = new mongoose.Schema({
     email: {
         type: String
@@ -8,7 +9,7 @@ const userSchema = new mongoose.Schema({
         type: String
     }
 });
-// static signup method
+
 userSchema.statics.signup = async function (email, password) {
     const exists = await this.findOne({ email });
 
@@ -23,7 +24,6 @@ userSchema.statics.signup = async function (email, password) {
     return user;
 };
 
-// user login
 userSchema.statics.login = async function (email, password) {
     const user = await this.findOne({ email });
 
@@ -32,10 +32,10 @@ userSchema.statics.login = async function (email, password) {
     }
 
     const match = await bcrypt.compare(password, user.password);
-    if (!match) {
-        throw Error('Incorrect password');
+    if (!match) { 
+        throw Error('Incorrect password'); 
     }
-    
+
     return user;
 };
 

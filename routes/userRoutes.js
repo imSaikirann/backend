@@ -3,7 +3,8 @@ const router = express.Router()
 const { UserLogin,UserSignin} = require('../Controllers/userController')
 
 router.post('/login',UserLogin)
-router.post('/signin',UserSignin)
+
+router.post('/signup',UserSignin)
 
   
 

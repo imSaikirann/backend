@@ -12,9 +12,9 @@ app.use(express.json());
 
 app.use('/api/detailedFrontend', dFrontend);
 app.use('/api/user', UserLoginDetails);
-app.use('/api/updateCheckbox', checkboxUpdate);
+app.use('/api/updateCheckbox', checkboxUpdate);  
 
-app.use((req, res, next) => {
+app.use((req, res, next) => { 
     console.log(req.path, req.method);
     next();  
 });
