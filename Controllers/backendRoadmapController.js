@@ -1,9 +1,9 @@
-const detailedFrontendModel = require('../models/detailedFrontendModel');
+const backendModel = require('../models/backendModel');
 
 const postData = async (req, res) => {
-  const { name, information, youtubeLink, documentationLink, questions, articles, githubProjects,topics } = req.body;
+  const { name, information, youtubeLink, documentationLink, questions, articles, githubProjects ,topics,frameworks} = req.body;
   try {
-    const newData = await detailedFrontendModel.create({ name, information, youtubeLink, documentationLink, questions, articles, githubProjects ,topics});
+    const newData = await backendModel.create({ name, information, youtubeLink, documentationLink, questions, articles, githubProjects ,topics,frameworks });
     res.status(200).json(newData);
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -12,7 +12,7 @@ const postData = async (req, res) => {
 
 const getData = async (req, res) => { 
   try {
-    const allData = await detailedFrontendModel.find();
+    const allData = await backendModel.find();
     res.setHeader('Cache-Control', 'no-store');
     res.status(200).json(allData);
   } catch (error) {
@@ -23,7 +23,7 @@ const getData = async (req, res) => {
 const deleteData = async (req, res) => {
   const { id } = req.params;
   try {
-    const deletedData = await detailedFrontendModel.findByIdAndDelete(id);
+    const deletedData = await backendModel.findByIdAndDelete(id);
     if (!deletedData) {
       return res.status(404).json({ error: 'Data not found or already deleted.' });
     }
@@ -36,7 +36,7 @@ const updateData = async (req, res) => {
   const { id } = req.params;
   
   try {
-    const data = await detailedFrontendModel.findByIdAndUpdate({_id:id},{
+    const data = await backendModel.findByIdAndUpdate({_id:id},{
       ...req.body
     })
 

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const detailedFrontendSchema = new mongoose.Schema({
+const backendRoadmapSchema = new mongoose.Schema({
   name: {
     type: String,
     unique: true,
@@ -8,8 +8,8 @@ const detailedFrontendSchema = new mongoose.Schema({
   },
   information: {
     type: String,
-    unique: false,
-    required: false,
+    unique: true,
+    required: true,
   },
   youtubeLink: {
     type: String,
@@ -19,11 +19,10 @@ const detailedFrontendSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
-
   articles: [
     {
-      text: { type: String, required: false},
-      link: { type: String, required: false },
+      text:{type:String,required:true},
+      link: { type: String, required: true },
     },
   ],
   githubProjects: [
@@ -37,17 +36,13 @@ const detailedFrontendSchema = new mongoose.Schema({
       text: { type: String, required: true },
     },
   ],
-  isRecommended: {
-    type: Boolean,
-    default: false,
-  },
   topics: [
     {
-      topicName: {
+      topicName: { 
         type: String,
         required: false,
       },
-      information: { 
+      information: {
         type: String,
         required: false,
       },
@@ -61,9 +56,24 @@ const detailedFrontendSchema = new mongoose.Schema({
       },
     },
   ],
+  frameworks: {
+    type: [
+      {
+        name: String,
+        information: String,
+        youtubeLink: String,
+        articles: [
+          {
+            text: { type: String },
+            link: { type: String },
+          },
+        ],
+      },
+    ],
+    required: false,
+  },
 });
 
-const detailedFrontendModel = mongoose.model('detailedFrontendModel', detailedFrontendSchema);
+const backendRoadmapModel = mongoose.model('backendRoadmapModel', backendRoadmapSchema);
 
-module.exports = detailedFrontendModel;
-
+module.exports = backendRoadmapModel;

@@ -5,7 +5,10 @@ const userCheckboxSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'UserSchema' // Reference the UserSchema model
     },
-    completedLanguages: [String]
+    completedLanguages: [String],
+    bcompletedLanguages: [String]
+
+
 });
 
 module.exports = mongoose.model('UserCheckboxData', userCheckboxSchema);

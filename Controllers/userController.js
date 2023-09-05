@@ -26,18 +26,17 @@ const UserLogin = async (req, res) => {
 const UserSignin = async (req, res) => {
     const { email, password } = req.body;
 
-    try{
+    try {
         const newUser = await UserSchema.signup(email, password);
-        
+
         const token = createToken(newUser._id);
 
-        const initialCheckboxData= await UserCheckboxData.create({
+        const initialCheckboxData = await UserCheckboxData.create({
             userId: newUser._id,
-            completedLanguages: [] 
+            completedLanguages: []
         });
-        res.status(200).json({ email, token,Data:initialCheckboxData });
 
-
+        res.status(200).json({ user: newUser, token, Data: initialCheckboxData });
     } catch (error) {
         res.status(500).json({ message: 'Signup error' });
     }
