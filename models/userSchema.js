@@ -31,7 +31,7 @@ userSchema.statics.signup = async function (email, password) {
       throw new Error('All fields are required');
     }
     if (!validator.isStrongPassword(password)) {
-      throw new Error('Password is not strong enough');
+      throw new Error('Password ');
     }
     if (exists) {
       throw new Error('Email is already in use');
