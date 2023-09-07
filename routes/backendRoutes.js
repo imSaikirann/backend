@@ -8,7 +8,7 @@ router.post('/',postData)
 router.delete('/:id',deleteData)
 //getti  all data
 router.get('/',getData)
-//update
+//update 
 router.patch('/:id',updateData)
 
 module.exports = router

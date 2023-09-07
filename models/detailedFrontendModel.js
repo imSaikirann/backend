@@ -32,6 +32,7 @@ const detailedFrontendSchema = new mongoose.Schema({
       link: { type: String, required: false },
     },
   ],
+
   questions: [
     {
       text: { type: String, required: true },

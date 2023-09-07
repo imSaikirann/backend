@@ -1,22 +1,40 @@
+// mongooseUser.js
+
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const validator = require('validator');
+
 const userSchema = new mongoose.Schema({
-    email: {
-        type: String
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    validate: {
+      validator: (value) => {
+        // Use a regex pattern to validate the email format
+        return /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(value);
+      },
+      message: 'Invalid email format',
     },
-    password: {
-        type: String
-    }
+  },
+  password: {
+    type: String,
+    required: true,
+  },
 });
 
 userSchema.statics.signup = async function (email, password) {
-
-
-
+  try {
     const exists = await this.findOne({ email });
 
+    if (!email || !password) {
+      throw new Error('All fields are required');
+    }
+    if (!validator.isStrongPassword(password)) {
+      throw new Error('Password is not strong enough');
+    }
     if (exists) {
-        throw Error('Email is already used');
+      throw new Error('Email is already in use');
     }
 
     const salt = await bcrypt.genSalt(10);
@@ -24,21 +42,37 @@ userSchema.statics.signup = async function (email, password) {
 
     const user = await this.create({ email, password: hash });
     return user;
+  } catch (error) {
+    throw error;
+  }
 };
 
 userSchema.statics.login = async function (email, password) {
+  try {
     const user = await this.findOne({ email });
 
+    if (!email || !password) {
+      throw new Error('All fields are required');
+    }
+    if (!validator.isStrongPassword(password)) {
+      throw new Error('Password is not strong enough');
+    }
+  
+
     if (!user) {
-        throw Error('Email not found');
+      throw new Error('Email not found');
     }
 
     const match = await bcrypt.compare(password, user.password);
-    if (!match) { 
-        throw Error('Incorrect password'); 
+
+    if (!match) {
+      throw new Error('Incorrect password');
     }
 
     return user;
+  } catch (error) {
+    throw error;
+  }
 };
 
-module.exports = mongoose.model('UserSchema', userSchema);
+module.exports = mongoose.model('User', userSchema);
